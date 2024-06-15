@@ -21,8 +21,8 @@ jobs:
       - name: Upload APK Release
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ env.main_project_module }}/build/outputs/apk/release/
+          path: ./app/build/outputs/apk/release/*.apk
       - name: Upload AAB (App Bundle) Release
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ env.main_project_module }}/build/outputs/bundle/release/
+          path: ./app/build/outputs/bundle/release/*.aab
