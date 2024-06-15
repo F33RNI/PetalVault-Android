@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/show_qr"
-        app:icon="@drawable/baseline_app_shortcut_24"
+        app:icon="@drawable/baseline_qr_code_24"
         app:layout_constraintBottom_toTopOf="@+id/btnRandom"
         app:layout_constraintEnd_toStartOf="@+id/btnScan"
         app:layout_constraintHorizontal_bias="0.5"

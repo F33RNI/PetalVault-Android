@@ -99,18 +99,12 @@ public class VaultActivity extends AppCompatActivity {
             return;
         }
 
-        // Enable delete device button only if there is at least one sync device
-        findViewById(R.id.btnDeleteDevice).setEnabled(!vaultUtils.getDeviceNames().isEmpty());
-
         // Connect elements
         findViewById(R.id.btnShowMnemonic).setOnClickListener(v -> showMnemonic());
         findViewById(R.id.btnAddEntry).setOnClickListener(v -> addEntry());
         findViewById(R.id.btnRenameVault).setOnClickListener(v -> rename(null));
         findViewById(R.id.btnDeleteVault).setOnClickListener(v -> delete(false));
-        findViewById(R.id.btnSyncTo).setOnClickListener(v -> syncToDevice(null, false));
-        findViewById(R.id.btnSyncFrom).setOnClickListener(v -> syncFrom(false));
-        findViewById(R.id.btnExport).setOnClickListener(v -> export());
-        findViewById(R.id.btnDeleteDevice).setOnClickListener(v -> deleteDevice(null, false));
+        findViewById(R.id.btnSyncExport).setOnClickListener(v -> syncExport());
 
         // Create and connect adapter
         RecyclerView entries = findViewById(R.id.entries);
@@ -121,6 +115,27 @@ public class VaultActivity extends AppCompatActivity {
 
         // Import data?
         if (intent.hasExtra("import") && intent.getBooleanExtra("import", false)) syncFrom(false);
+    }
+
+    private void syncExport() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.sync_export_title);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        LinearLayout dialogInputLayout = (LinearLayout) inflater.inflate(R.layout.sync_dialog, null, false);
+
+        dialogInputLayout.findViewById(R.id.btnExport).setOnClickListener(v -> export());
+        dialogInputLayout.findViewById(R.id.btnSyncTo).setOnClickListener(v -> syncToDevice(null, false));
+        dialogInputLayout.findViewById(R.id.btnSyncFrom).setOnClickListener(v -> syncFrom(false));
+        dialogInputLayout.findViewById(R.id.btnDeleteDevice).setOnClickListener(v -> deleteDevice(null, false));
+
+        // Enable delete device button only if there is at least one sync device
+        dialogInputLayout.findViewById(R.id.btnDeleteDevice).setEnabled(!vaultUtils.getDeviceNames().isEmpty());
+
+        builder.setView(dialogInputLayout);
+
+        builder.setNegativeButton(R.string.ok, (dialog, which) -> dialog.dismiss());
+        builder.show();
     }
 
     /**
@@ -159,21 +174,14 @@ public class VaultActivity extends AppCompatActivity {
             builder.setTitle(R.string.add_device);
             builder.setMessage(R.string.add_device_title);
 
-            LinearLayout alertLayout = new LinearLayout(this);
-            alertLayout.setOrientation(LinearLayout.VERTICAL);
-
             LayoutInflater inflater = LayoutInflater.from(this);
-
-            LinearLayout dialogInputLayout = (LinearLayout) inflater.inflate(R.layout.text_input_dialog, alertLayout, false);
+            LinearLayout dialogInputLayout = (LinearLayout) inflater.inflate(R.layout.text_input_dialog, null, false);
             TextInputEditText textInputEditText = dialogInputLayout.findViewById(R.id.inputView);
-
             textInputEditText.setHint(R.string.add_device_hint);
 
             builder.setView(dialogInputLayout);
-            alertLayout.addView(dialogInputLayout);
-            builder.setView(alertLayout);
 
-            builder.setNegativeButton(R.string.cancel, null);
+            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
             builder.setPositiveButton(R.string.ok, (dialog, which) -> syncToDevice(String.valueOf(textInputEditText.getText()), true));
             builder.show();
             return;
@@ -201,9 +209,6 @@ public class VaultActivity extends AppCompatActivity {
             Log.e(TAG, "Sync to error", e);
             Toast.makeText(this, String.valueOf(e), Toast.LENGTH_LONG).show();
         }
-
-        // Enable delete device button only if there is at least one sync device
-        findViewById(R.id.btnDeleteDevice).setEnabled(!vaultUtils.getDeviceNames().isEmpty());
 
         // Check if we have anything to sync
         if (syncData == null) {
@@ -299,7 +304,7 @@ public class VaultActivity extends AppCompatActivity {
             builder.setItems(deviceNames.toArray(new String[0]), (dialog, which) -> {
                 if (which < deviceNames.size()) deleteDevice(deviceNames.get(which), false);
             });
-            builder.setNegativeButton(R.string.cancel, null);
+            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
 
             builder.show();
             return;
@@ -311,7 +316,7 @@ public class VaultActivity extends AppCompatActivity {
             builder.setTitle(getString(R.string.delete_device_confirm_title, deviceName));
             builder.setMessage(R.string.delete_device_confirm_description);
 
-            builder.setPositiveButton(R.string.no, null);
+            builder.setPositiveButton(R.string.no, (dialog, which) -> dialog.dismiss());
             builder.setNegativeButton(R.string.yes, (dialog, which) -> deleteDevice(deviceName, true));
             builder.show();
             return;
@@ -331,9 +336,6 @@ public class VaultActivity extends AppCompatActivity {
 
         // Show confirmation
         Toast.makeText(this, R.string.delete_device_ok, Toast.LENGTH_SHORT).show();
-
-        // Enable delete device button only if there is at least one sync device
-        findViewById(R.id.btnDeleteDevice).setEnabled(!vaultUtils.getDeviceNames().isEmpty());
     }
 
     /**
@@ -401,22 +403,17 @@ public class VaultActivity extends AppCompatActivity {
             builder.setTitle(R.string.vault_rename_title);
             builder.setMessage(R.string.vault_rename_description);
 
-            LinearLayout alertLayout = new LinearLayout(this);
-            alertLayout.setOrientation(LinearLayout.VERTICAL);
-
             LayoutInflater inflater = LayoutInflater.from(this);
 
-            LinearLayout dialogInputLayout = (LinearLayout) inflater.inflate(R.layout.text_input_dialog, alertLayout, false);
+            LinearLayout dialogInputLayout = (LinearLayout) inflater.inflate(R.layout.text_input_dialog, null, false);
             TextInputEditText renameVaultText = dialogInputLayout.findViewById(R.id.inputView);
 
             renameVaultText.setHint(vaultName);
             renameVaultText.setText(vaultName);
 
             builder.setView(dialogInputLayout);
-            alertLayout.addView(dialogInputLayout);
-            builder.setView(alertLayout);
 
-            builder.setNegativeButton(R.string.cancel, null);
+            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
             builder.setPositiveButton(R.string.ok, (dialog, which) -> rename(String.valueOf(renameVaultText.getText())));
             builder.show();
             return;
@@ -453,7 +450,7 @@ public class VaultActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.vault_delete_confirm_title);
             builder.setMessage(R.string.vault_delete_confirm_description);
-            builder.setPositiveButton(R.string.no, null);
+            builder.setPositiveButton(R.string.no, (dialog, which) -> dialog.dismiss());
             builder.setNegativeButton(R.string.yes, (dialog, which) -> delete(true));
             builder.show();
             return;

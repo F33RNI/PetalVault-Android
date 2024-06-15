@@ -96,6 +96,7 @@
     <string name="qr_viewer_export_to_title">Export</string>
     <string name="qr_viewer_export_to_description">Scan 1 or more QR codes on another other device to import the vault</string>
     <string name="nothing_to_sync">Nothing to sync</string>
+    <string name="delete_device">Delete device</string>
     <string name="delete_device_select_title">Select device to delete</string>
     <string name="delete_device_confirm_title">Delete %1$s</string>
     <string name="delete_device_confirm_description">Do you really want to delete this device from synchronization history?</string>
@@ -105,4 +106,6 @@
     <string name="import_sync_ok">Vault synchronized / imported</string>
     <string name="import_sync_error">Error synchronizing / importing vault</string>
     <string name="import_sync_already_received">Already received that part</string>
+    <string name="sync_export_title">Sync / export</string>
+    <string name="sync_export_btn">Sync</string>
 </resources>

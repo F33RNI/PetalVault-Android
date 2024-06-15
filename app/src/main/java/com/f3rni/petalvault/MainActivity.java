@@ -14,6 +14,7 @@
 package com.f3rni.petalvault;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -386,13 +387,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Add editable text
         if (withAlertEditText) {
-            LinearLayout alertLayout = new LinearLayout(this);
-            alertLayout.setOrientation(LinearLayout.VERTICAL);
-
             LayoutInflater inflater = LayoutInflater.from(this);
 
             int layoutID = password ? R.layout.text_input_dialog_password : R.layout.text_input_dialog;
-            LinearLayout dialogueInputLayout = (LinearLayout) inflater.inflate(layoutID, alertLayout, false);
+            LinearLayout dialogueInputLayout = (LinearLayout) inflater.inflate(layoutID, null, false);
             alertEditText = dialogueInputLayout.findViewById(R.id.inputView);
 
             // Hint for vault name or password
@@ -402,9 +400,6 @@ public class MainActivity extends AppCompatActivity {
             else alertEditText.setHint(null);
 
             builder.setView(dialogueInputLayout);
-            alertLayout.addView(dialogueInputLayout);
-
-            builder.setView(alertLayout);
         }
 
         // Alert title
