@@ -22,7 +22,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ./app/build/outputs/bundle/release/*.apk
+            ./app/build/outputs/apk/release/*.apk
       - name: Upload AAB (App Bundle) Release
         uses: softprops/action-gh-release@v1
         with:
