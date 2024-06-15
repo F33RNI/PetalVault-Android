@@ -19,10 +19,12 @@ jobs:
       - run: ./gradlew assembleRelease --stacktrace
       - run: ./gradlew bundleRelease --stacktrace
       - name: Upload APK Release
-        uses: actions/upload-artifact@v3
+        uses: softprops/action-gh-release@v1
         with:
-          path: ./app/build/outputs/apk/release/*.apk
+          files: |
+            ./app/build/outputs/bundle/release/*.apk
       - name: Upload AAB (App Bundle) Release
-        uses: actions/upload-artifact@v3
+        uses: softprops/action-gh-release@v1
         with:
-          path: ./app/build/outputs/bundle/release/*.aab
+          files: |
+            ./app/build/outputs/bundle/release/*.aab
