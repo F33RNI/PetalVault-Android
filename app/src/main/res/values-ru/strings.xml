@@ -109,4 +109,6 @@
     <string name="import_sync_already_received">Эта часть уже получена</string>
     <string name="sync_export_title">Синхронизация / экспорт</string>
     <string name="sync_export_btn">Синхронизация</string>
+    <string name="github">GitHub</string>
+    <string name="about">Конфиденциальный оффлайн-менеджер паролей с поддержкой нескольких хранилищ и синхронизацией через QR-коды</string>
 </resources>

@@ -14,7 +14,9 @@
 package com.f3rni.petalvault;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -82,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         vaultsLayout = findViewById(R.id.vaultsLayout);
         findViewById(R.id.btnNewVault).setOnClickListener(v -> newOrImport(true));
         findViewById(R.id.btnImportVault).setOnClickListener(v -> newOrImport(false));
+
+        // Logo -> Show about
+        findViewById(R.id.petalVaultLogo).setOnClickListener(v -> about());
     }
 
     /**
@@ -415,6 +420,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return builder;
+    }
+
+    /**
+     * Shows about message with github link
+     */
+    private void about() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.logo);
+        builder.setTitle(R.string.app_name);
+        builder.setMessage(R.string.about);
+
+        // Show GitHub page
+        builder.setNeutralButton(R.string.github, (dialog, which) -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://github.com/F33RNI/PetalVault-Android"));
+            startActivity(intent);
+        });
+
+        builder.setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss());
+        builder.show();
     }
 
     /**

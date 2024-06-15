@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="@+id/btnNewVault" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/petalVaultLogo"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
@@ -56,7 +56,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/petalVaultLogo" />
 
     <ScrollView
         android:layout_width="0dp"

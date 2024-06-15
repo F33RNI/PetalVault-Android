@@ -108,4 +108,6 @@
     <string name="import_sync_already_received">Already received that part</string>
     <string name="sync_export_title">Sync / export</string>
     <string name="sync_export_btn">Sync</string>
+    <string name="github">GitHub</string>
+    <string name="about">Secure offline multi-vault password manager with QR code-based synchronization</string>
 </resources>
