@@ -1,7 +1,7 @@
 # 🌸 PetalVault-Android
 
-| ![Project logo](https://github.com/F33RNI/PetalVault-Android/blob/assets/logo.svg | <h1>Secure offline multi-vault password manager with QR code-based synchronization</h1> |
-|-----------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------:|
+| ![Project logo](https://github.com/F33RNI/PetalVault-Android/blob/assets/logo.svg) | <h1>Secure offline multi-vault password manager with QR code-based synchronization</h1> |
+|------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------:|
 
 ----------
 
