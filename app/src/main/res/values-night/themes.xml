@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PetalVault" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/red_1</item>
+        <item name="colorPrimaryVariant">@color/red_2</item>
+        <item name="colorOnPrimary">@color/pastel_white</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/purple_2</item>
+        <item name="colorSecondaryVariant">@color/purple_1</item>
+        <item name="colorOnSecondary">@color/pastel_white</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
+</resources>

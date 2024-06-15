@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VaultActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/entries"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnExport"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDeleteVault"
+        app:layout_constraintWidth_max="600dp" />
+
+    <TextView
+        android:id="@+id/vaultTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/red_1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnRenameVault"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnRenameVault" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnShowMnemonic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/show_mnemonic"
+        app:icon="@drawable/baseline_app_shortcut_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSyncFrom"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSyncFrom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/sync_from"
+        app:icon="@drawable/baseline_arrow_downward_24"
+        app:layout_constraintBottom_toBottomOf="@+id/btnShowMnemonic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnShowMnemonic"
+        app:layout_constraintTop_toTopOf="@+id/btnShowMnemonic"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSyncTo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/sync_to"
+        app:icon="@drawable/baseline_arrow_upward_24"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDeleteDevice"
+        app:layout_constraintEnd_toEndOf="@+id/btnSyncFrom"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnDeleteDevice"
+        app:layout_constraintTop_toTopOf="@+id/btnDeleteDevice" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeleteDevice"
+        android:layout_width="48dp"
+        android:layout_height="0dp"
+        app:icon="@drawable/baseline_delete_24"
+        app:iconGravity="textTop"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnExport"
+        app:layout_constraintEnd_toStartOf="@+id/btnSyncTo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/btnSyncFrom"
+        app:layout_constraintTop_toTopOf="@+id/btnExport" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/add_entry"
+        android:focusable="true"
+        app:backgroundTint="@color/purple_2"
+        app:layout_constraintBottom_toBottomOf="@+id/entries"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_add_24" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnExport"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/export"
+        app:icon="@drawable/baseline_arrow_upward_24"
+        app:layout_constraintBottom_toTopOf="@+id/btnShowMnemonic"
+        app:layout_constraintEnd_toEndOf="@+id/btnShowMnemonic"
+        app:layout_constraintStart_toStartOf="@+id/btnShowMnemonic"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRenameVault"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:minWidth="0dp"
+        app:icon="@drawable/baseline_drive_file_rename_outline_24"
+        app:iconGravity="textTop"
+        app:iconPadding="0dp"
+        app:iconTint="@color/material_button_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDeleteVault"
+        app:layout_constraintStart_toEndOf="@+id/vaultTitle"
+        app:layout_constraintTop_toTopOf="@+id/btnDeleteVault" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeleteVault"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:minWidth="0dp"
+        app:icon="@drawable/baseline_delete_forever_24"
+        app:iconGravity="textTop"
+        app:iconPadding="0dp"
+        app:iconTint="@color/material_button_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
