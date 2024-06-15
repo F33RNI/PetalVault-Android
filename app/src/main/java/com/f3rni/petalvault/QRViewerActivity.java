@@ -13,16 +13,23 @@
 
 package com.f3rni.petalvault;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowInsets;
+import android.view.WindowMetrics;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -151,11 +158,7 @@ public class QRViewerActivity extends AppCompatActivity {
         });
 
         // Determine QR size based on screen size
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-        qrCodeSize = Math.min(height, width);
+        qrCodeSize = Math.min(getScreenHeight(this), getScreenWidth(this));
 
         // Show first QR code
         showQR();
@@ -182,6 +185,50 @@ public class QRViewerActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             Log.e(TAG, "Unable to show QR code", e);
+        }
+    }
+
+    /**
+     * <https://stackoverflow.com/a/70350121>
+     */
+    public static int getScreenWidth(@NonNull Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowMetrics windowMetrics = activity.getWindowManager().getCurrentWindowMetrics();
+            Rect bounds = windowMetrics.getBounds();
+            android.graphics.Insets insets = windowMetrics.getWindowInsets().getInsetsIgnoringVisibility(WindowInsets.Type.systemBars());
+
+            if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && activity.getResources().getConfiguration().smallestScreenWidthDp < 600) { // landscape and phone
+                int navigationBarSize = insets.right + insets.left;
+                return bounds.width() - navigationBarSize;
+            } else { // portrait or tablet
+                return bounds.width();
+            }
+        } else {
+            DisplayMetrics outMetrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+            return outMetrics.widthPixels;
+        }
+    }
+
+    /**
+     * <https://stackoverflow.com/a/70350121>
+     */
+    public static int getScreenHeight(@NonNull Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowMetrics windowMetrics = activity.getWindowManager().getCurrentWindowMetrics();
+            Rect bounds = windowMetrics.getBounds();
+            android.graphics.Insets insets = windowMetrics.getWindowInsets().getInsetsIgnoringVisibility(androidx.core.view.WindowInsetsCompat.Type.systemBars());
+
+            if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && activity.getResources().getConfiguration().smallestScreenWidthDp < 600) { // landscape and phone
+                return bounds.height();
+            } else { // portrait or tablet
+                int navigationBarSize = insets.bottom;
+                return bounds.height() - navigationBarSize;
+            }
+        } else {
+            DisplayMetrics outMetrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+            return outMetrics.heightPixels;
         }
     }
 }
