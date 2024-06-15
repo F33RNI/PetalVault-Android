@@ -16,6 +16,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    setProperty("archivesBaseName", defaultConfig.applicationId + "-" + project.name + "-" + defaultConfig.versionName + "-" + defaultConfig.versionCode)
+
     buildTypes {
         release {
             minifyEnabled false
