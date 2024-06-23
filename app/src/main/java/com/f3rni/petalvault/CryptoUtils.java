@@ -97,7 +97,7 @@ public class CryptoUtils {
     public static JSONObject encryptEntry(JSONObject decrypted, byte[] masterKey) {
         try {
             // Convert to bytes and calculate checksum
-            String entryStr = decrypted.toString().replace(" ", "").replace("\\/", "/");
+            String entryStr = decrypted.toString().replace("\\/", "/");
             entryStr = entryStr.substring(1, entryStr.length() - 1);
             byte[] entryBytes = entryStr.getBytes(StandardCharsets.UTF_8);
             byte[] entryChecksum = md5(entryBytes);
