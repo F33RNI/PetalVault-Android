@@ -41,6 +41,8 @@ public class EditActivity extends AppCompatActivity {
     private TextInputLayout inputNotes;
     private String id;
 
+    private String inputSiteStart, inputUserStart, inputPasswordStart, inputNotesStart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,20 +113,33 @@ public class EditActivity extends AppCompatActivity {
         findViewById(R.id.btnEditCancel).setOnClickListener(v -> finish());
         findViewById(R.id.btnEditDone).setOnClickListener(v -> done());
         findViewById(R.id.btnDeleteEntry).setOnClickListener(v -> delete(false));
+
+        // Assign initial text
+        inputSiteStart = String.valueOf(Objects.requireNonNull(inputSite.getEditText()).getText());
+        inputUserStart = String.valueOf(Objects.requireNonNull(inputUser.getEditText()).getText());
+        inputPasswordStart = String.valueOf(Objects.requireNonNull(inputPassword.getEditText()).getText());
+        inputNotesStart = String.valueOf(Objects.requireNonNull(inputNotes.getEditText()).getText());
     }
 
     /**
-     * Puts text values into intent and finishes activity
+     * Puts text values and "changed" flag into intent and finishes activity
      */
     private void done() {
         Intent returnIntent = new Intent();
 
         if (id != null && !id.isEmpty()) returnIntent.putExtra("id", id);
 
-        returnIntent.putExtra("site", String.valueOf(Objects.requireNonNull(inputSite.getEditText()).getText()));
-        returnIntent.putExtra("user", String.valueOf(Objects.requireNonNull(inputUser.getEditText()).getText()));
-        returnIntent.putExtra("password", String.valueOf(Objects.requireNonNull(inputPassword.getEditText()).getText()));
-        returnIntent.putExtra("notes", String.valueOf(Objects.requireNonNull(inputNotes.getEditText()).getText()));
+        String inputSiteNew = String.valueOf(Objects.requireNonNull(inputSite.getEditText()).getText());
+        String inputUserNew = String.valueOf(Objects.requireNonNull(inputUser.getEditText()).getText());
+        String inputPasswordNew = String.valueOf(Objects.requireNonNull(inputPassword.getEditText()).getText());
+        String inputNotesNew = String.valueOf(Objects.requireNonNull(inputNotes.getEditText()).getText());
+
+        returnIntent.putExtra("site", inputSiteNew);
+        returnIntent.putExtra("user", inputUserNew);
+        returnIntent.putExtra("password", inputPasswordNew);
+        returnIntent.putExtra("notes", inputNotesNew);
+
+        returnIntent.putExtra("changed", !inputSiteNew.equals(inputSiteStart) || !inputUserNew.equals(inputUserStart) || !inputPasswordNew.equals(inputPasswordStart) || !inputNotesNew.equals(inputNotesStart));
 
         setResult(Activity.RESULT_OK, returnIntent);
         finish();

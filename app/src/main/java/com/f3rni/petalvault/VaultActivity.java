@@ -527,6 +527,9 @@ public class VaultActivity extends AppCompatActivity {
 
                     // Edit entry
 
+                    // Exit if nothing changed
+                    if (data.hasExtra("changed") && !data.getBooleanExtra("changed", false)) return;
+
                     Log.i(TAG, "Editing entry " + id);
 
                     VaultEntry vaultEntry = vaultUtils.getVaultEntries().get(entryIndex);
